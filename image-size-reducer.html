@@ -1,110 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FILE SIZE REDUCER BY AA BROTHERS</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IMAGE SIZE REDUCER BY AR BROTHERS</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="icon" type="image/png" href="AA.png">
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: 'Poppins', sans-serif;
-      background: #4b09e4;
-      margin: 0;
-      padding: 0;
+      animation: bgColor 10s infinite alternate;
+      overflow: hidden;
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      color: #333;
+      position: relative;
     }
+
+    @keyframes bgColor {
+      0% { background-color: #000; }
+      100% { background-color: #0d0d2b; }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
     .container {
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 2.5rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      max-width: 250px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      max-width: 280px;
       width: 100%;
       text-align: center;
       backdrop-filter: blur(10px);
+      z-index: 1;
     }
-    .styled-button {
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(106, 17, 203, 0.3);
-      margin-top: 10px;
-      display: inline-block;
-      width: auto;
+
+    h1 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
     }
-    .styled-button:hover {
-      background: linear-gradient(135deg, #2575fc, #6a11cb);
-      box-shadow: 0 6px 15px rgba(37, 117, 252, 0.4);
-    }
-    .dropdown {
-      width: 100%;
-      margin: 10px 0;
-    }
+    
+.styled-button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  padding: 12px 20px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  margin-top: 10px;
+  width: 100%;
+}
+
+.styled-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 140, 255, 0.5);
+}
+
+    
     select {
       width: 100%;
       padding: 12px;
       border-radius: 25px;
-      border: 2px solid #6a11cb;
-      font-size: 1rem;
+      border: 2px solid #000;
+      font-size: 0.9rem;
+      margin: 10px 0;
     }
-    #cropContainer {
+
+    #cropContainer, #croppedPreview {
       display: none;
       max-width: 100%;
       margin-top: 1rem;
     }
+
     #croppedPreview {
-      display: none;
-      max-width: 100%;
-      margin-top: 1rem;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
   </style>
 </head>
 <body>
+  <canvas id="starCanvas"></canvas>
+
   <div class="container">
-    <h1>FILE SIZE REDUCER BY AA BROTHERS</h1>
-    <input type="file" id="imageInput" accept="image/*" class="styled-button" style="padding: 15px 5px; font-size: 0.8rem;">
+    <h1>IMAGE SIZE REDUCER BY AR BROTHERS</h1>
+    <input type="file" id="imageInput" accept="image/*" class="styled-button">
     <div id="cropContainer">
       <img id="cropImage" style="max-width: 100%;">
       <button id="cropBtn" class="styled-button">Crop</button>
     </div>
     <img id="croppedPreview" alt="Cropped Image">
-    <div class="dropdown">
-      <select id="sizeOptions">
-        <option value="" disabled selected>Select Size</option>
-        <option value="10">10 KB</option>
-        <option value="30">30 KB</option>
-        <option value="50">50 KB</option>
-        <option value="100">100 KB</option>
-        <option value="300">300 KB</option>
-      </select>
-    </div>
-    <div class="dropdown">
-      <select id="formatOptions">
-        <option value="" disabled selected>Select Format</option>
-        <option value="image">Image</option>
-        <option value="pdf">PDF</option>
-      </select>
-    </div>
+    <select id="sizeOptions">
+      <option value="" disabled selected>Select Size</option>
+      <option value="10">10 KB</option>
+      <option value="30">30 KB</option>
+      <option value="50">50 KB</option>
+      <option value="100">100 KB</option>
+      <option value="300">300 KB</option>
+    </select>
+    <select id="formatOptions">
+      <option value="" disabled selected>Select Format</option>
+      <option value="image">Image</option>
+      <option value="pdf">PDF</option>
+    </select>
     <button id="downloadBtn" class="styled-button" disabled>Download</button>
   </div>
 
   <script>
+    // Star animation
+    const canvas = document.getElementById("starCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let stars = [];
+    const numStars = 100;
+
+    for (let i = 0; i < numStars; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        radius: Math.random() * 1.5 + 0.5
+      });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < numStars; i++) {
+        let s = stars[i];
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+        for (let j = i + 1; j < numStars; j++) {
+          let dx = s.x - stars[j].x;
+          let dy = s.y - stars[j].y;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(s.x, s.y);
+            ctx.lineTo(stars[j].x, stars[j].y);
+            ctx.strokeStyle = "rgba(255,255,255,0.1)";
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function updateStars() {
+      for (let s of stars) {
+        s.x += s.vx;
+        s.y += s.vy;
+
+        if (s.x < 0 || s.x > canvas.width) s.vx *= -1;
+        if (s.y < 0 || s.y > canvas.height) s.vy *= -1;
+      }
+    }
+
+    function animate() {
+      drawStars();
+      updateStars();
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Image crop and size reducer code (same as before)
     const imageInput = document.getElementById('imageInput');
     const cropContainer = document.getElementById('cropContainer');
     const cropImage = document.getElementById('cropImage');
@@ -115,7 +199,6 @@
     const sizeOptions = document.getElementById('sizeOptions');
     let cropper, croppedDataUrl;
 
-    // Load image into cropper
     imageInput.addEventListener('change', function(event) {
       const file = event.target.files[0];
       if (file) {
@@ -130,7 +213,6 @@
       }
     });
 
-    // Crop the image and display preview
     cropBtn.addEventListener('click', function() {
       const croppedCanvas = cropper.getCroppedCanvas();
       croppedDataUrl = croppedCanvas.toDataURL();
@@ -139,7 +221,6 @@
       downloadBtn.disabled = false;
     });
 
-    // Resize image based on the selected target size
     sizeOptions.addEventListener('change', function() {
       const targetSizeKB = parseInt(sizeOptions.value);
       if (croppedDataUrl) {
@@ -153,7 +234,6 @@
       }
     });
 
-    // Download image/PDF with fixed file name "ar bro"
     downloadBtn.addEventListener('click', function() {
       const format = formatOptions.value;
       if (format === 'image') {
@@ -163,7 +243,6 @@
       }
     });
 
-    // Function to reduce image file size using canvas
     function resizeImage(img, targetSizeKB) {
       let quality = 1.0;
       let width = img.width;
@@ -176,25 +255,17 @@
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
         resizedDataUrl = canvas.toDataURL('image/jpeg', quality);
-        const fileSizeKB = (resizedDataUrl.length * 0.75) / 1024; // approximate file size in KB
-        
-        if (fileSizeKB <= targetSizeKB) {
-          break;
-        }
-        // Decrease quality in smaller increments if possible
+        const fileSizeKB = (resizedDataUrl.length * 0.75) / 1024;
+        if (fileSizeKB <= targetSizeKB) break;
         if (quality > 0.1) {
           quality -= 0.05;
           if (quality < 0.1) quality = 0.1;
         } else {
-          // If quality is at its lower limit, reduce dimensions and reset quality
           width *= 0.9;
           height *= 0.9;
           quality = 1.0;
         }
-        // Safety break if image gets too small
-        if (width < 10 || height < 10) {
-          break;
-        }
+        if (width < 10 || height < 10) break;
       }
       return resizedDataUrl;
     }
