@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AA QR Code Generator</title>
 
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <link rel="icon" type="image/png" href="AA QR Code.png">
@@ -18,8 +16,10 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Poppins', sans-serif;
+            text-align: center;
             background: black;
             color: white;
             display: flex;
@@ -28,103 +28,110 @@
             height: 100vh;
             overflow: hidden;
         }
+
         .stars {
-            position: fixed;
+            position: absolute;
             width: 100%;
             height: 100%;
             background: transparent url('https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif') repeat;
-            z-index: -1;
             background-size: cover;
-            animation: twinkle 20s linear infinite;
-        }
-
-        @keyframes twinkle {
-            0% {opacity: 0.8;}
-            50% {opacity: 1;}
-            100% {opacity: 0.8;}
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.2;
         }
 
         .container {
+            position: relative;
+            z-index: 1;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
             width: 90%;
             max-width: 400px;
         }
+
         h1 {
             font-weight: 600;
             margin-bottom: 15px;
-            color: #ff9800;
         }
-        input {
+
+        input, button {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
             border-radius: 8px;
-            font-size: 16px;
             background: transparent;
             color: white;
+            font-size: 16px;
+            transition: 0.3s;
             text-align: center;
         }
+
         input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.6);
         }
+
         input:focus {
             border-color: #ff9800;
             outline: none;
         }
+
         button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 8px;
             background: #ff9800;
-            color: white;
             font-size: 18px;
             cursor: pointer;
         }
+
         button:hover {
             background: #e68900;
         }
+
         .color-options {
-            margin: 10px 0;
             display: flex;
             justify-content: center;
             gap: 10px;
         }
+
         .color-options input {
             display: none;
         }
+
         .color-options label {
             width: 30px;
             height: 30px;
             border-radius: 50%;
             cursor: pointer;
-            border: 3px solid transparent;
+            border: 2px solid transparent;
+            display: inline-block;
         }
+
         .color-options input:checked + label {
             border-color: white;
         }
+
         #black { background: black; }
         #red { background: red; }
         #blue { background: blue; }
         #green { background: green; }
         #purple { background: purple; }
+
         #qrcode-container {
             margin-top: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         #qrcode {
             padding: 20px;
             background: white;
             border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+
         #download {
             display: none;
             margin-top: 15px;
@@ -132,8 +139,10 @@
             background: #4caf50;
             color: white;
             border-radius: 8px;
+            font-size: 16px;
             text-decoration: none;
         }
+
         #download:hover {
             background: #43a047;
         }
@@ -141,34 +150,25 @@
 </head>
 <body>
     <div class="stars"></div>
-
     <div class="container">
         <h1>QR Code Generator❤️</h1>
         <input type="text" id="data" placeholder="Enter text or URL" />
-
         <div class="color-options">
             <input type="radio" id="colorBlack" name="qrColor" value="black" checked>
             <label id="black" for="colorBlack"></label>
-
             <input type="radio" id="colorRed" name="qrColor" value="red">
             <label id="red" for="colorRed"></label>
-
             <input type="radio" id="colorBlue" name="qrColor" value="blue">
             <label id="blue" for="colorBlue"></label>
-
             <input type="radio" id="colorGreen" name="qrColor" value="green">
             <label id="green" for="colorGreen"></label>
-
             <input type="radio" id="colorPurple" name="qrColor" value="purple">
             <label id="purple" for="colorPurple"></label>
         </div>
-
         <button id="generate">Generate QR Code</button>
-
         <div id="qrcode-container">
             <div id="qrcode"></div>
         </div>
-
         <a id="download" href="#" download="AA QR Code.png">Download QR Code</a>
     </div>
 
