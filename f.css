@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -10,6 +11,7 @@ body {
   color: #fff;
   background: linear-gradient(135deg, #000014, #0a0a40);
 }
+
 canvas#stars {
   position: fixed;
   top: 0;
@@ -18,6 +20,7 @@ canvas#stars {
   height: 100%;
   z-index: -1;
 }
+
 .container {
   max-width: 300px;
   margin: 100px auto;
@@ -28,11 +31,13 @@ canvas#stars {
   text-align: center;
   backdrop-filter: blur(10px);
 }
+
 h1 {
   font-size: 1.2rem;
   margin-bottom: 1rem;
   color: #ffffff;
 }
+
 .custom-file-upload {
   display: inline-block;
   padding: 10px 16px;
@@ -46,12 +51,15 @@ h1 {
   box-shadow: 0 4px 12px rgba(106, 17, 203, 0.3);
   transition: all 0.3s ease;
 }
+
 .custom-file-upload:hover {
   background: linear-gradient(135deg, #2575fc, #6a11cb);
 }
+
 .custom-file-upload input[type="file"] {
   display: none;
 }
+
 .styled-button, select {
   background: linear-gradient(135deg, #6a11cb, #2575fc);
   color: white;
@@ -65,18 +73,22 @@ h1 {
   width: 100%;
   box-shadow: 0 4px 10px rgba(106, 17, 203, 0.3);
 }
+
 .styled-button:hover {
   background: linear-gradient(135deg, #2575fc, #6a11cb);
 }
+
 select {
   appearance: none;
   outline: none;
   border: none;
 }
+
 #cropContainer, #croppedPreview {
   display: none;
   margin-top: 1rem;
 }
+
 #croppedPreview {
   max-width: 100%;
   border-radius: 12px;
