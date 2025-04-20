@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FILE SIZE REDUCER BY AR BROTHERS ❤️</title>
+  <title>FILE SIZE REDUCER BY AR BROTHERS</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="f.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="j.css">
+  
 </head>
 <body>
   <canvas id="stars"></canvas>
@@ -172,7 +174,6 @@
           if (distance < 100) {
             ctx.beginPath();
             ctx.moveTo(stars[i].x, stars[i].y);
-
             ctx.lineTo(stars[j].x, stars[j].y);
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
             ctx.stroke();
