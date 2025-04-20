@@ -10,6 +10,10 @@ body {
   color: white;
   overflow: hidden;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 #stars-bg {
@@ -32,7 +36,6 @@ body {
   width: 90%;
   max-width: 400px;
   text-align: center;
-  margin: 50px auto;
 }
 
 h1 {
