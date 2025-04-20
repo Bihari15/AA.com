@@ -1,55 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AA QR Code Generator</title>
-
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="AA QR Code.png">
   <link rel="stylesheet" href="qr.css">
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
 </head>
 <body>
-  <canvas id="stars-bg"></canvas>
-
   <div class="container">
     <h1>QR Code Generator</h1>
     <input type="text" id="data" placeholder="Enter text or URL" />
-
+    
     <div class="color-options">
       <input type="radio" id="colorBlack" name="qrColor" value="black" checked>
       <label id="black" for="colorBlack"></label>
-
+  
       <input type="radio" id="colorRed" name="qrColor" value="red">
       <label id="red" for="colorRed"></label>
-
+  
       <input type="radio" id="colorBlue" name="qrColor" value="blue">
       <label id="blue" for="colorBlue"></label>
-
+  
       <input type="radio" id="colorGreen" name="qrColor" value="green">
       <label id="green" for="colorGreen"></label>
-
+  
       <input type="radio" id="colorPurple" name="qrColor" value="purple">
       <label id="purple" for="colorPurple"></label>
     </div>
-
+  
     <button id="generate">Generate QR Code</button>
-
+    
     <div id="qrcode-container">
       <div id="qrcode"></div>
     </div>
-
+    
     <a id="download" href="#" download="AA QR Code.png">Download QR Code</a>
   </div>
 
   <script>
-    // QR Code generator
-    $(document).ready(function () {
-      $('#generate').click(function () {
+    $(document).ready(function() {
+      $('#generate').click(function() {
         var data = $('#data').val();
         var selectedColor = $('input[name="qrColor"]:checked').val();
         $('#qrcode').empty();
@@ -85,65 +78,6 @@
         }
       });
     });
-
-    // Stars background with connected lines
-    const canvas = document.getElementById('stars-bg');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    for (let i = 0; i < 100; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        radius: Math.random() * 1.5 + 0.5
-      });
-    }
-
-    function animateStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (let star of stars) {
-        star.x += star.vx;
-        star.y += star.vy;
-
-        if (star.x < 0 || star.x > canvas.width) star.vx *= -1;
-        if (star.y < 0 || star.y > canvas.height) star.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = '#c084fc';
-        ctx.fill();
-      }
-
-      for (let i = 0; i < stars.length; i++) {
-        for (let j = i + 1; j < stars.length; j++) {
-          const dx = stars[i].x - stars[j].x;
-          const dy = stars[i].y - stars[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 100) {
-            ctx.beginPath();
-            ctx.moveTo(stars[i].x, stars[i].y);
-            ctx.lineTo(stars[j].x, stars[j].y);
-            ctx.strokeStyle = 'rgba(192, 132, 252, 0.2)';
-            ctx.stroke();
-          }
-        }
-      }
-
-      requestAnimationFrame(animateStars);
-    }
-
-    animateStars();
   </script>
 </body>
 </html>
